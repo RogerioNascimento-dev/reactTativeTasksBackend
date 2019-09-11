@@ -18,7 +18,7 @@ module.exports = app =>{
                     email: req.body.email,
                     password: password,
                 }
-                ).then(_ => res.status(204).send())
+                ).then(_ => res.status(201).send())
                 .catch(err => res.status(500).json(err))
         });
     }

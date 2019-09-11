@@ -1,4 +1,9 @@
-//Renomear para .env
+//Renomear para .env e configurar as variáveis de ambiente
 module.exports = {
-    authSecret: ''
+    authSecret: '',
+    configDatabase:{
+        database: '',
+        user: '',
+        password: '',
+    }
 }

@@ -1,9 +1,11 @@
+const {configDatabase} = require('./.env');
+
 module.exports = {
     client: 'postgresql',
     connection: {
-      database: 'tasks',
-      user:     'postgres',
-      password: '1234567'
+      database: configDatabase.database,
+      user:     configDatabase.user,
+      password: configDatabase.password,
     },
     pool: {
       min: 2,
