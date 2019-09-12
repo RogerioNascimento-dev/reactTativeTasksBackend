@@ -1,4 +1,6 @@
-const { authSecret } = require('../.env');
+require('dotenv/config');
+const authSecret = process.env.AUTH_SECRET;
+
 const passport = require('passport');
 const passportJwt = require('passport-jwt');
 const { Strategy, ExtractJwt } = passportJwt;

@@ -1,9 +1,11 @@
 //Renomear para .env e configurar as variáveis de ambiente
-module.exports = {
-    authSecret: '',
-    configDatabase:{
-        database: '',
-        user: '',
-        password: '',
-    }
-}
+
+APP_NAME= API Tasks
+AUTH_SECRET=
+
+#Variáveis para configurações de conexão com base de dados
+DATABASE=
+USER_DATABASE=
+PASSWORD_DATABASE=
+PORT_DATABASE=
+URI_DATAVASE=

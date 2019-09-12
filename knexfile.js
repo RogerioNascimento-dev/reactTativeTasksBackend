@@ -1,11 +1,11 @@
-const {configDatabase} = require('./.env');
+require('dotenv/config');
 
 module.exports = {
     client: 'postgresql',
     connection: {
-      database: configDatabase.database,
-      user:     configDatabase.user,
-      password: configDatabase.password,
+      database: process.env.DATABASE,
+      user:     process.env.USER_DATABASE,
+      password: process.env.PASSWORD_DATABASE,
     },
     pool: {
       min: 2,
