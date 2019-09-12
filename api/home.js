@@ -1,6 +1,6 @@
 module.exports = app =>{
     const servicesHome = (req,res) =>{
-        res.status(200).send('Bem vindo ao servico de IPI tasks');
+        res.status(200).send('Tasks Backend API');
     }
     return {servicesHome}
 }
