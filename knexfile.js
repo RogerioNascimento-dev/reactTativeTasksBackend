@@ -7,6 +7,7 @@ module.exports = {
       user:     process.env.USER_DATABASE,
       password: process.env.PASSWORD_DATABASE,
     },
+    searchPath: ['public']
     pool: {
       min: 2,
       max: 10
