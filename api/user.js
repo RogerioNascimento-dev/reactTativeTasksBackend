@@ -23,5 +23,16 @@ module.exports = app =>{
         });
     }
 
-    return {save}
+    const all =  (req,res) =>{
+        app.db('users')
+        .where('id','<>',0)
+        .then((retorno) =>{
+            res.status(200).json(retorno);
+        })
+        .catch((ex) =>{
+            res.status(404).send('Nenhum usuário cadastrado!');
+        });
+    }
+
+    return {save,all}
 }
