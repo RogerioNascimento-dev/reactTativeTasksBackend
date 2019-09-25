@@ -78,6 +78,7 @@ module.exports = app =>{
     }
 
     const toggleTask = (req,res) =>{
+        console.log('toggle em: '+req.params.id)
         app.db('tasks')
         .where({id: req.params.id, userId: req.user.id})
         .first()
