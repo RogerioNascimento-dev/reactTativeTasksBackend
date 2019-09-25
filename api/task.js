@@ -1,25 +1,45 @@
 const moment = require('moment');
 module.exports = app =>{
     const getTasks = (req,res) =>{
-        const date = req.query.date ?
-        req.query.date : moment().endOf('day').toDate();
+        const dateStart = req.query.dateStart ?
+        req.query.dateStart : moment().startOf('day').toDate();
+        const dateEnd = req.query.dateEnd ?
+        req.query.dateEnd : moment().endOf('day').toDate();
+
+        console.log('dateStart: '+dateStart+' dateEnd: '+dateEnd)
 
         app.db('tasks')
         .where({ userId: req.user.id })
-        .where('estimateAt', '<=', date )
+        .whereBetween('estimateAt', [dateStart,dateEnd] )
         .orderBy('estimateAt')
         .then(tasks => res.json(tasks))
-        .catch(err => res.status(500).json(err))
+        .catch(err =>
+            {
+            let mensagem = 'Algo inesperado aconteceu, tente novamente mais tarde! '
+            mensagem += 'Se persistir contate o administrador do sistema.'
+            const resp = {msg: mensagem}
+            res.status(500).json(resp)
+            })
     }
 
     const save = (req,res) =>{
         if(!req.body.desc){
-            return res.status(400).send('O parâmetro descrição é obrigatório!')
+            return res.status(500).json('O parâmetro descrição é obrigatório!')
         }
         req.body.userId = req.user.id;
         app.db('tasks').insert(req.body)
-        .then(_ => res.status(204).send())
-        .catch(err => res.status(400).json(err))
+        .then(_ => {
+            const resp = {msg: 'Atividade criada com sucesso!'}
+            res.status(201).json(resp)
+
+    })
+        .catch(err =>
+            {
+            let mensagem = 'Algo inesperado aconteceu, tente novamente mais tarde! '
+            mensagem += 'Se persistir contate o administrador do sistema.'
+            const resp = {msg: mensagem}
+            res.status(500).json(resp)
+            })
     }
 
     const remove = (req, res) =>{
@@ -34,7 +54,13 @@ module.exports = app =>{
                 res.status(400).send(msg);
             }
         })
-        .catch(err => res.status(400).json(err))
+        .catch(err =>
+            {
+            let mensagem = 'Algo inesperado aconteceu, tente novamente mais tarde! '
+            mensagem += 'Se persistir contate o administrador do sistema.'
+            const resp = {msg: mensagem}
+            res.status(500).json(resp)
+            })
     }
 
     const updateTaskDoneAt = (req,res,doneAt) =>{
@@ -42,7 +68,13 @@ module.exports = app =>{
         .where({id: req.params.id, userId: req.user.id})
         .update({doneAt})
         .then(_ => res.status(204).send())
-        .catch(err => res.status(400).json(err))
+        .catch(err =>
+            {
+            let mensagem = 'Algo inesperado aconteceu, tente novamente mais tarde! '
+            mensagem += 'Se persistir contate o administrador do sistema.'
+            const resp = {msg: mensagem}
+            res.status(500).json(resp)
+            })
     }
 
     const toggleTask = (req,res) =>{
@@ -58,7 +90,13 @@ module.exports = app =>{
             const doneAt = task.doneAt ? null : new Date()
             updateTaskDoneAt(req,res,doneAt)
         })
-        .catch(err => res.status(500).json(err))
+        .catch(err =>
+            {
+            let mensagem = 'Algo inesperado aconteceu, tente novamente mais tarde! '
+            mensagem += 'Se persistir contate o administrador do sistema.'
+            const resp = {msg: mensagem}
+            res.status(500).json(resp)
+            })
     }
 
 
